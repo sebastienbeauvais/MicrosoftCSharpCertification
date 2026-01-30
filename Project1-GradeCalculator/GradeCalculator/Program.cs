@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
 
 public class Program
 {
@@ -60,11 +61,15 @@ public class Program
 
         var creditHours = CalculateCreditHours(courseCredits);
         var totalGradePoints = CalculateTotalGradePoints(courseCreditsEarned, courseCredits);
+        var gradePointAverage = CalculateGradePointAverage(totalGradePoints, creditHours);
+        var formattedGradePointAverage = FormatGradePointAverage(gradePointAverage);
 
         // This will all be moved to its own function
         Console.WriteLine($"Student Name: {studentName}");
         Console.WriteLine($"total grade points earn: {totalGradePoints}\ttotal credit hours: {creditHours}");
         PrintHeader();
+        Console.WriteLine($"Final GPA: {gradePointAverage}");
+        Console.WriteLine($"Formatted GPA: {formattedGradePointAverage}");
         
         
     }
@@ -112,5 +117,13 @@ public class Program
             courseCreditIterrator++;
         }
         return gradePoints;
+    }
+    private static decimal CalculateGradePointAverage(int totalGradePoints, int totalCredits)
+    {
+        return (decimal) totalGradePoints / (decimal) totalCredits;
+    }
+    private static decimal FormatGradePointAverage(decimal gpa)
+    {
+        return Math.Round(gpa, 2);
     }
 }
