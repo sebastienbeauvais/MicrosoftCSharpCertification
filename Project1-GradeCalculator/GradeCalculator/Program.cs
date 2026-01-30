@@ -5,34 +5,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Details
+        // Details - data setup
         string studentName = "Sophia Johnson";
-        string course1Name = "English 101";
-        string course2Name = "Algebra 101";
-        string course3Name = "Biology 101";
-        string course4Name = "Computer Science I";
-        string course5Name = "Psychology 101";
-
-        int course1Credit = 3;
-        int course2Credit = 3;
-        int course3Credit = 4;
-        int course4Credit = 4;
-        int course5Credit = 3;
-
-        // String representation of grades
-        string course1Grade = "A";
-        string course2Grade = "B";
-        string course3Grade = "B";
-        string course4Grade = "B";
-        string course5Grade = "A";
-
-        /*
-        Console.WriteLine($"{course1Name} {course1Grade} {course1Credit}");
-        Console.WriteLine($"{course2Name} {course2Grade} {course2Credit}");
-        Console.WriteLine($"{course3Name} {course3Grade} {course3Credit}");
-        Console.WriteLine($"{course4Name} {course4Grade} {course4Credit}");
-        Console.WriteLine($"{course5Name} {course5Grade} {course5Credit}");
-        */
 
         //reformat string and ints into a list
         List<string> sophiasCourses = new List<string>
@@ -57,25 +31,15 @@ public class Program
             3, 3, 4, 4, 3
         };
 
-        // Calculating the sum of credit hours
-
         var creditHours = CalculateCreditHours(courseCredits);
         var totalGradePoints = CalculateTotalGradePoints(courseCreditsEarned, courseCredits);
         var gradePointAverage = CalculateGradePointAverage(totalGradePoints, creditHours);
         var formattedGradePointAverage = FormatGradePointAverage(gradePointAverage);
 
         // This will all be moved to its own function
-        Console.WriteLine($"Student Name: {studentName}");
-        Console.WriteLine($"total grade points earn: {totalGradePoints}\ttotal credit hours: {creditHours}");
-        PrintHeader();
-        Console.WriteLine($"Final GPA: {gradePointAverage}");
-        Console.WriteLine($"Formatted GPA: {formattedGradePointAverage}");
+        CreateFinalReport(studentName, sophiasCourses, courseCreditsEarned, courseCredits, formattedGradePointAverage);
         
         
-    }
-    private static void PrintHeader()
-    {
-        Console.WriteLine("Course\t\tCredit\tCredit Hour\tGrade Points");
     }
     private static int ConvertCourseLetterToCredit(string courseCreditEarned)
     {
@@ -125,5 +89,34 @@ public class Program
     private static decimal FormatGradePointAverage(decimal gpa)
     {
         return Math.Round(gpa, 2);
+    }
+    private static void CreateFinalReport(string studentName
+        , List<string> classesTaken
+        , List<string> gradesEarned
+        , List<int> courseCreditsPerClass
+        , decimal gpa)
+    {
+        Console.WriteLine($"Student: {studentName}\n");
+        PrintHeader();
+        var additionalListsIterrator = 0;
+        foreach (string classTaken in classesTaken) 
+        {
+            if(classTaken.Contains("Computer Science"))
+            {
+                Console.WriteLine($"{classTaken}\t{gradesEarned[additionalListsIterrator]}\t{courseCreditsPerClass[additionalListsIterrator]}");
+
+            }
+            else
+            {
+                Console.WriteLine($"{classTaken}\t\t{gradesEarned[additionalListsIterrator]}\t{courseCreditsPerClass[additionalListsIterrator]}");
+            }
+            additionalListsIterrator++;
+        }
+        Console.WriteLine($"Final GPA:\t\t{gpa}");
+
+    }
+    private static void PrintHeader()
+    {
+        Console.WriteLine("Course\t\t\tCredit\tCredit Hour");
     }
 }
