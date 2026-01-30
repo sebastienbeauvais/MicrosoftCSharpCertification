@@ -36,10 +36,7 @@ public class Program
         var gradePointAverage = CalculateGradePointAverage(totalGradePoints, creditHours);
         var formattedGradePointAverage = FormatGradePointAverage(gradePointAverage);
 
-        // This will all be moved to its own function
         CreateFinalReport(studentName, sophiasCourses, courseCreditsEarned, courseCredits, formattedGradePointAverage);
-        
-        
     }
     private static int ConvertCourseLetterToCredit(string courseCreditEarned)
     {
